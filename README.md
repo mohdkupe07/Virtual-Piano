@@ -1,12 +1,10 @@
 # 🎹 Hand Gesture Controlled Virtual Piano
 
-A real-time virtual piano controlled entirely using hand gestures via webcam. Built using Python 3.11+, OpenCV, MediaPipe, NumPy, and Pygame.
+A real-time virtual piano controlled entirely using hand gestures via webcam. Built using Python, OpenCV, MediaPipe, NumPy, and Pygame.
 
 ## 📋 Project Overview
 
-This project uses computer vision to detect hand landmarks from webcam feed and maps finger gestures to piano notes.
-
-Just raise your fingers to play sounds — no keyboard required.
+This project uses computer vision (MediaPipe) to detect hand landmarks from a webcam and maps finger gestures to piano notes in real time. No physical keyboard is required — just raise your fingers to play sounds.
 
 Finger Mapping:
 Thumb = C  
@@ -17,14 +15,14 @@ Pinky = G
 
 Pinch gesture (Thumb + Index) is also detected.
 
-## 🗂 Folder Structure
+## 🗂 Project Structure
 
 VirtualPiano/
 ├── main.py                 # Entry point  
 ├── hand_tracker.py        # MediaPipe hand tracking  
 ├── gesture_detector.py    # Finger & pinch detection  
-├── piano_player.py        # Audio playback  
-├── generate_sounds.py     # Generate .wav files  
+├── piano_player.py        # Audio playback system  
+├── generate_sounds.py     # Generates .wav files  
 ├── requirements.txt       # Dependencies  
 ├── README.md  
 └── sounds/
@@ -63,22 +61,22 @@ python main.py
 
 ## 🎮 Controls
 
-Thumb  → C  
-Index  → D  
+Thumb → C  
+Index → D  
 Middle → E  
-Ring   → F  
-Pinky  → G  
+Ring → F  
+Pinky → G  
 
-Pinch → Thumb + Index  
-Quit → Q or ESC  
+Pinch = Thumb + Index  
+Quit = Q or ESC  
 
 ## 🧠 How It Works
 
-MediaPipe detects 21 hand landmarks per hand.
+MediaPipe detects 21 hand landmarks per hand and returns normalized coordinates.
 
 Finger detection:
-- If tip.y < pip.y → finger is UP (Index/Middle/Ring/Pinky)
-- Thumb uses x-axis comparison based on left/right hand
+- Index/Middle/Ring/Pinky: tip.y < pip.y → finger UP
+- Thumb: based on x-axis depending on left/right hand
 
 ## 🤏 Pinch Detection
 
@@ -88,16 +86,15 @@ If distance < 40 pixels → pinch detected
 
 ## 🔁 Debounce Logic
 
-Only triggers sound on state change:
-DOWN → UP triggers note  
-UP → UP ignored  
+Prevents repeated triggering every frame. Only triggers on state change:
+DOWN → UP triggers sound
 
 ## 🎵 Audio System
 
 Uses pygame.mixer:
 - 44100 Hz sample rate
 - Low latency buffer
-- Supports multiple simultaneous notes
+- Multiple notes can play simultaneously
 
 ## 🚀 Run Project
 
@@ -107,7 +104,7 @@ python main.py
 
 ## 🔮 Future Improvements
 
-- Full piano octave expansion
+- Full piano keyboard expansion
 - Chord detection
 - Volume control via hand distance
 - MIDI output support
