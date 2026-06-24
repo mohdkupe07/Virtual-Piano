@@ -1,15 +1,12 @@
 # 🎹 Hand Gesture Controlled Virtual Piano
 
-A real-time virtual piano controlled entirely using hand gestures via webcam.  
-Built with Python 3.11+, OpenCV, MediaPipe, NumPy, and Pygame.
+A real-time virtual piano controlled entirely using hand gestures via webcam. Built using Python 3.11+, OpenCV, MediaPipe, NumPy, and Pygame.
 
----
+## 📋 Project Overview
 
-# 📋 Project Overview
+This project uses computer vision to detect hand landmarks from webcam feed and maps finger gestures to piano notes.
 
-This project uses computer vision to detect hands using webcam and maps finger gestures to piano notes.
-
-Just raise your fingers to play notes — no keyboard required.
+Just raise your fingers to play sounds — no keyboard required.
 
 Finger Mapping:
 Thumb = C  
@@ -20,20 +17,16 @@ Pinky = G
 
 Pinch gesture (Thumb + Index) is also detected.
 
----
-
-# 🗂 Folder Structure
+## 🗂 Folder Structure
 
 VirtualPiano/
-│
-├── main.py                 # Entry point
-├── hand_tracker.py        # MediaPipe hand tracking
-├── gesture_detector.py    # Finger + pinch detection
-├── piano_player.py        # Sound playback
-├── generate_sounds.py     # Create .wav files
-├── requirements.txt       # Dependencies
-├── README.md
-│
+├── main.py                 # Entry point  
+├── hand_tracker.py        # MediaPipe hand tracking  
+├── gesture_detector.py    # Finger & pinch detection  
+├── piano_player.py        # Audio playback  
+├── generate_sounds.py     # Generate .wav files  
+├── requirements.txt       # Dependencies  
+├── README.md  
 └── sounds/
     ├── C.wav
     ├── D.wav
@@ -41,38 +34,34 @@ VirtualPiano/
     ├── F.wav
     └── G.wav
 
----
+## ⚙️ Installation
 
-# ⚙️ Installation
-
-## 1 Clone project
+Clone repository:
 git clone <repo-url>
 cd VirtualPiano
 
-## 2 Create virtual environment
+Create virtual environment:
 python -m venv venv
 
-Windows:
+Activate (Windows):
 venv\Scripts\activate
 
-Mac/Linux:
+Activate (Mac/Linux):
 source venv/bin/activate
 
-## 3 Install dependencies
+Install dependencies:
 pip install -r requirements.txt
 
-OR
+OR:
 pip install opencv-python mediapipe numpy pygame
 
-## 4 Generate sounds
+Generate sound files:
 python generate_sounds.py
 
-## 5 Run project
+Run project:
 python main.py
 
----
-
-# 🎮 Controls
+## 🎮 Controls
 
 Thumb  → C  
 Index  → D  
@@ -80,92 +69,58 @@ Middle → E
 Ring   → F  
 Pinky  → G  
 
-Pinch = Thumb + Index  
-Quit = Q or ESC  
+Pinch → Thumb + Index  
+Quit → Q or ESC  
 
----
+## 🧠 How It Works
 
-# 🖥️ Working Display
+MediaPipe detects 21 hand landmarks per hand.
 
-FPS shown  
-Active note shown  
-Finger states shown  
-Live webcam feed with landmarks  
+Finger detection:
+- If tip.y < pip.y → finger is UP (Index/Middle/Ring/Pinky)
+- Thumb uses x-axis comparison based on left/right hand
 
----
-
-# 🔬 How It Works
-
-MediaPipe detects 21 hand landmarks.
-
-Each finger is checked:
-
-Index/Middle/Ring/Pinky:
-tip.y < pip.y → finger UP
-
-Thumb:
-Right hand → thumb_tip.x < ip.x  
-Left hand  → thumb_tip.x > ip.x  
-
----
-
-# 🤏 Pinch Detection
+## 🤏 Pinch Detection
 
 distance = sqrt((x4-x8)^2 + (y4-y8)^2)
 
-If distance < threshold → pinch detected
+If distance < 40 pixels → pinch detected
 
-Threshold = 40 pixels
+## 🔁 Debounce Logic
 
----
+Only triggers sound on state change:
+DOWN → UP triggers note  
+UP → UP ignored  
 
-# 🔁 Debounce Logic
+## 🎵 Audio System
 
-Prevents repeated triggers every frame.
-
-Only triggers on:
-DOWN → UP transition
-
----
-
-# 🎵 Sound System
-
-Uses pygame.mixer
-
-- 44100 Hz audio
+Uses pygame.mixer:
+- 44100 Hz sample rate
 - Low latency buffer
-- Multiple notes supported
+- Supports multiple simultaneous notes
 
----
-
-# 🚀 Run Project
+## 🚀 Run Project
 
 pip install -r requirements.txt
 python generate_sounds.py
 python main.py
 
----
+## 🔮 Future Improvements
 
-# 🔭 Future Improvements
-
-- Full piano keyboard (2 octaves)
+- Full piano octave expansion
 - Chord detection
 - Volume control via hand distance
-- MIDI support
+- MIDI output support
 - Recording feature
 - Visual piano UI
 
----
+## 📦 Dependencies
 
-# 📦 Dependencies
+OpenCV  
+MediaPipe  
+NumPy  
+Pygame  
 
-opencv-python  
-mediapipe  
-numpy  
-pygame  
+## 📄 License
 
----
-
-# 📄 License
-
-MIT License-->free to use, modify, and distribute.
+MIT License — free to use and modify.
